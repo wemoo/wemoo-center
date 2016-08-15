@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import simplejson
 
 from flask import request
