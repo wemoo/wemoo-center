@@ -5,6 +5,14 @@ from common import render
 from app.api import api
 
 
+script = """
+#!/bin/bash
+
+cd /opt/kangfubao
+mvn clean -Dmaven.test.skip=true package
+"""
+
+
 @api.route('/webhook', methods=['POST'])
 def webhook():
     data = simplejson.loads(request.data)
@@ -20,6 +28,7 @@ def webhook():
 
     if event in ('push', 'merge_request', 'pull_request'):
         if repo_name in ('test'):
+            print()
             print('There is a event: ', event)
 
     return render.ok()
