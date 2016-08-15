@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Environment, can be Production, Staging, Development, Testing
+export FLASK_ENV=Development
+export PYTHONPATH=`pwd`
+
+# DB Configuration
+# Mongo
+export MONGO_HOST='mongodb://localhost/wemoo-dev'
+
+# Start project
+ipython

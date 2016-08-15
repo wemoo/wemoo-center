@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Environment, can be Production, Staging, Development, Testing
+export FLASK_ENV=Testing
+export PYTHONPATH=`pwd`
+
+# DB Configuration
+# Use MongoDB
+export MONGO_DB='mongodb://localhost:27017/wemoo-test'
+
+# Start project
+python manage.py test
