@@ -3,7 +3,7 @@
 
 import app
 
-from flask.ext.script import Manager
+from flask_script import Manager
 from config import environment
 
 application = app.app
