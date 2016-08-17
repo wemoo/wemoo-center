@@ -2,8 +2,8 @@ import simplejson
 
 from flask import request
 from common import render
+from common.shell import execute
 from app.api import api
-
 
 script = """
 #!/bin/bash
@@ -13,22 +13,26 @@ mvn clean -Dmaven.test.skip=true package
 """
 
 
-@api.route('/webhook', methods=['POST'])
+@api.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     data = simplejson.loads(request.data)
+    print(data)
 
     event = data.get('event')
     repo = data.get('repository')
     if not repo:
-        return render.error()
+        print('>>> not a repo')
+        return render.ok('not a repo')
 
     repo_name = repo.get('name')
     if not repo_name:
-        return render.error()
+        print('>>> repo name missing')
+        return render.ok('repo name missing')
 
     if event in ('push', 'merge_request', 'pull_request'):
         if repo_name in ('test'):
-            print()
-            print('There is a event: ', event)
+            output = str(execute(script, 300), 'utf-8')
+            print(output)
+            return render.ok(output)
 
     return render.ok()
