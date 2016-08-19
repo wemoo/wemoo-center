@@ -6,7 +6,9 @@ export PYTHONPATH=`pwd`
 
 # DB Configuration
 # Mongo
-export MONGO_HOST='mongodb://localhost/wemoo-dev'
+export MONGO_DB="wemoo-dev"
+export MONGO_HOST="localhost"
+export MONGO_PORT="27017"
 
 # Start project
 ipython

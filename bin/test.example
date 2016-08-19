@@ -6,7 +6,9 @@ export PYTHONPATH=`pwd`
 
 # DB Configuration
 # Use MongoDB
-export MONGO_DB='mongodb://localhost:27017/wemoo-test'
+export MONGO_DB="wemoo-test"
+export MONGO_HOST="localhost"
+export MONGO_PORT="27017"
 
 # Start project
 python manage.py test
