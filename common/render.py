@@ -4,6 +4,7 @@ import datetime
 import copy
 
 from flask import json, Response
+from bson.json_util import dumps
 
 default_headers = {
     'Access-Control-Allow-Origin': '*',
@@ -15,28 +16,31 @@ default_headers = {
 
 
 def not_found(reason='not found'):
-    return error(reason)
+    return error(reason, status_code=404)
 
 
 def jsonify(data, status_code=200):
-    res = Response(json.dumps(data, default=default_json_format))
-    # res = Response(json.dumps(data))
+    res = Response(dumps(data, default=default_json_format))
     res.headers = default_headers
     res.status = str(status_code)
     return res
 
 
 def ok(content=''):
-    msg = {'status': 'ok', 'content': content, }
+    msg = {'status': 'ok',
+           'content': content, }
     res = jsonify(msg)
     return res
 
 
 def error(error='', status_code=400):
     if isinstance(error, (tuple, list)):
-        msg = {'status': 'error', 'code': error[0], 'msg': error[1], }
+        msg = {'status': 'error',
+               'code': error[0],
+               'msg': error[1], }
     else:
-        msg = {'status': 'error', 'msg': error, }
+        msg = {'status': 'error',
+               'msg': error, }
 
     res = jsonify(msg, status_code=status_code)
     return res

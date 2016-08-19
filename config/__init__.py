@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 
 from config.db import MongoDB
 from config.config import Production
@@ -11,7 +12,7 @@ from config.config import Testing
 try:
     env = os.environ['FLASK_ENV']
 except KeyError as e:
-    raise Exception('Please set the environment key FLASK_ENV to Production/Staging/Development/Testing')
+    sys.exit('Please set the environment key FLASK_ENV to Production/Staging/Development/Testing')
 
 
 class Environment(object):

@@ -11,8 +11,9 @@ class Config:
     #     user=os.environ.get('DB_USER'),
     #     passwd=os.environ.get('DB_PASSWD'))
 
-    MONGODB_SETTINGS = {'alias': 'default',
-                        'host': os.environ.get('MONGO_HOST'), }
+    MONGODB_SETTINGS = {'db': os.environ.get('MONGO_DB'),
+                        'host': os.environ.get('MONGO_HOST'),
+                        'port': int(os.environ.get('MONGO_PORT'))}
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'DBzPdEV7g97Hphu4Gc3pbfqNPYpK'
     SSL_DISABLE = False
