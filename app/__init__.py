@@ -15,7 +15,9 @@ def create_app():
 
     @app.after_request
     def _after_requestresp(res):
-        res.headers['Access-Control-Allow-Credentials'] = 'true'
+        # Using flask-cors instead
+        # res.headers['Access-Control-Allow-Credentials'] = 'true'
+        # res.headers['Access-Control-Allow-Origin'] = '*'
 
         return res
 
