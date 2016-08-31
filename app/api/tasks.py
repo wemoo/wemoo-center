@@ -12,7 +12,11 @@ from app.models.task import Task
 
 @api.route('/tasks', methods=['GET'])
 def tasks_index():
-    res = {'tasks': Task.objects(), 'time': datetime.datetime.now()}
+    tasks = [task for task in Task.objects()]
+    task_list = []
+    for task in tasks:
+        task_list.append(task.to_dict())
+    res = {'tasks': task_list}
     return render.ok(res)
 
 
@@ -24,18 +28,15 @@ def tasks_get_via_uuid(uuid):
 
 @api.route('/tasks', methods=['POST'])
 def tasks_post():
-    print('>>>', request.data)
-    return render.ok()
-
-    data = loads(str(request.data))
+    data = loads(request.data.decode('utf-8'))
     title = data.get('title', None)
     desc = data.get('desc', None)
     script = data.get('script', None)
 
     if title and desc and script:
-        task = Task(title=title, desc=desc, script=script)
+        task = Task(title=title, desc=desc, task_type=Task.TYPE_ONCE, script=script)
         task.save()
     else:
         return render.error("Params missing.")
 
-    return render.ok()
+    return render.ok(str(task.id))
