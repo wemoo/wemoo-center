@@ -23,6 +23,7 @@ class Task(db.Document):
 
     def to_dict(self):
         return {
+            'id': str(self.id),
             'title': self.title,
             'task_type': self.task_type,
             'desc': self.desc,
