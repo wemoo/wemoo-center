@@ -31,10 +31,10 @@ def error(msg=''):
     return res
 
 
-def jsonify(data, status_code=200):
+def jsonify(data):
     res = Response(dumps(data, default=default_json_format))
     res.headers = default_headers
-    res.status = 200
+    res.status_code = 200
     return res
 
 
