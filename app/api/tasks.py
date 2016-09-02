@@ -20,10 +20,14 @@ def tasks_index():
     return render.ok(res)
 
 
-@api.route('/tasks/<string:uuid>', methods=['GET'])
-def tasks_get_via_uuid(uuid):
-    tasks = Task.objects(uuid=uuid).to_json()
-    return render.ok({'tasks': tasks})
+@api.route('/tasks/<string:tid>', methods=['GET'])
+def tasks_get_by_id(tid):
+    tasks = Task.objects(id=tid)
+    if len(tasks) > 0:
+        task = tasks.get(0)
+        return render.ok({'task': task.to_dict()})
+    else:
+        return render.not_found()
 
 
 @api.route('/tasks', methods=['POST'])
