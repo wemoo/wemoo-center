@@ -12,4 +12,4 @@ export MONGO_PORT="27017"
 
 # Start project
 #python manage.py runserver -h 0.0.0.0 -p 8081
-gunicorn --reload -w 4 -b 127.0.0.1:8081 -k gevent manage:application
+gunicorn --reload -w 4 -b 0.0.0.0.1:8081 -k gevent manage:application
