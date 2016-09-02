@@ -15,8 +15,8 @@ default_headers = {
 }
 
 
-def not_found(reason='not found'):
-    return error(reason, status_code=404)
+def not_found(reason='Not found.'):
+    return error(reason)
 
 
 def ok(content=''):
