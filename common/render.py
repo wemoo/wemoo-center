@@ -19,30 +19,22 @@ def not_found(reason='not found'):
     return error(reason, status_code=404)
 
 
-def jsonify(data, status_code=200):
-    res = Response(dumps(data, default=default_json_format))
-    res.headers = default_headers
-    res.status = str(status_code)
-    return res
-
-
 def ok(content=''):
-    msg = {'status': 'ok',
-           'content': content, }
+    msg = {'success': True, 'content': content}
     res = jsonify(msg)
     return res
 
 
-def error(error='', status_code=400):
-    if isinstance(error, (tuple, list)):
-        msg = {'status': 'error',
-               'code': error[0],
-               'msg': error[1], }
-    else:
-        msg = {'status': 'error',
-               'msg': error, }
+def error(msg=''):
+    msg = {'success': False, 'msg': msg}
+    res = jsonify(msg)
+    return res
 
-    res = jsonify(msg, status_code=status_code)
+
+def jsonify(data, status_code=200):
+    res = Response(dumps(data, default=default_json_format))
+    res.headers = default_headers
+    res.status = 200
     return res
 
 
