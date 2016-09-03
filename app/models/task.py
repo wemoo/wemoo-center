@@ -8,8 +8,8 @@ db = environment.mdb
 
 
 class Task(db.Document):
-    TYPE_ONCE = 1
-    TYPE_CONTINUES = 2
+    TYPE_SINGLE = 1
+    TYPE_RESUABLE = 2
 
     title = db.StringField(required=True, max_length=100)
     host = db.ObjectIdField()
