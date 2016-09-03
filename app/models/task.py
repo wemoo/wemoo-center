@@ -12,6 +12,7 @@ class Task(db.Document):
     TYPE_CONTINUES = 2
 
     title = db.StringField(required=True, max_length=100)
+    host = db.ObjectIdField()
     task_type = db.IntField(required=True)
     desc = db.StringField(required=True, max_length=1000)
     script = db.StringField(required=True)
