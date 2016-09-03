@@ -29,3 +29,13 @@ def hosts_post():
         return render.ok()
     else:
         return render.error()
+
+
+@api.route('/hosts', methods=['GET'])
+def hosts_index():
+    hosts = [host for host in Host.objects()]
+    host_list = []
+    for host in hosts:
+        host_list.append(host.to_dict())
+    res = {'hosts': host_list}
+    return render.ok(res)

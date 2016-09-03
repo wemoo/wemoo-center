@@ -20,3 +20,17 @@ class Host(db.Document):
 
     created_at = db.DateTimeField(default=datetime.datetime.now)
     updated_at = db.DateTimeField(default=datetime.datetime.now)
+
+    def to_dict(self):
+        return {
+            'id': str(self.id),
+            'uuid': self.uuid,
+            'system': self.system,
+            'hostname': self.hostname,
+            'release': self.release,
+            'version': self.version,
+            'machine': self.machine,
+            'processor': self.processor,
+            'created_at': str(self.created_at),
+            'updated_at': str(self.updated_at)
+        }
