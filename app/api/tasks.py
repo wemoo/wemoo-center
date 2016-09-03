@@ -8,6 +8,7 @@ from bson.json_util import loads
 from common import render
 from app.api import api
 from app.models.task import Task
+from app.models.host import Host
 
 
 # Task index
@@ -60,3 +61,36 @@ def tasks_post():
         return render.error("Params missing.")
 
     return render.ok(str(task.id))
+
+
+# Update the task
+@api.route('/tasks/<string:task_id>', methods=['PUT'])
+def tasks_update(task_id):
+    data = loads(request.data.decode('utf-8'))
+    title = data.get('title', None)
+    desc = data.get('desc', None)
+    script = data.get('script', None)
+    host = data.get('host', None)
+
+    if not (title or desc or script or host):
+        return render.error('Params missing.')
+
+    tasks = Task.objects(id=task_id)
+    if len(tasks) == 0:
+        return render.not_found('Task not found.')
+
+    task = tasks.get(0)
+    if title:
+        task.title = title
+    if desc:
+        task.desc = desc
+    if script:
+        task.script = script
+    if host:
+        hosts = Host.objects(id=host)
+        if len(hosts) == 0:
+            return render.not_found('Host not found.')
+        task.host = host
+
+    task.save()
+    return render.ok()
