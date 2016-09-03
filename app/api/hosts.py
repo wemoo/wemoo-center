@@ -39,3 +39,13 @@ def hosts_index():
         host_list.append(host.to_dict())
     res = {'hosts': host_list}
     return render.ok(res)
+
+
+@api.route('/hosts/<string:host_id>', methods=['GET'])
+def hosts_get_by_id(host_id):
+    hosts = Host.objects(id=host_id)
+    if len(hosts) > 0:
+        host = hosts.get(0)
+        return render.ok({'host': host.to_dict()})
+    else:
+        return render.not_found()
