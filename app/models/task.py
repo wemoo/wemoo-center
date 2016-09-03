@@ -26,6 +26,7 @@ class Task(db.Document):
         return {
             'id': str(self.id),
             'title': self.title,
+            'host': str(self.host)
             'task_type': self.task_type,
             'desc': self.desc,
             'script': self.script,
