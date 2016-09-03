@@ -64,7 +64,7 @@ def tasks_post():
 
 
 # Update the task
-@api.route('/tasks/<string:task_id>', methods=['PUT'])
+@api.route('/tasks/<string:task_id>', methods=['PATCH', 'PUT'])
 def tasks_update(task_id):
     data = loads(request.data.decode('utf-8'))
     title = data.get('title', None)
@@ -92,5 +92,25 @@ def tasks_update(task_id):
             return render.not_found('Host not found.')
         task.host = host
 
+    task.save()
+    return render.ok()
+
+
+# update client task execute result
+@api.route('/tasks/<string:task_id>/exec', methods=['PATCH'])
+def tasks_exec_result(task_id):
+    data = loads(request.data.decode('utf-8'))
+    print(data)
+    result = data.get('result')
+
+    if not result:
+        return render.error("Params missing")
+
+    tasks = Task.objects(id=task_id)
+    if len(tasks) == 0:
+        return render.not_found('Task not found.')
+
+    task = tasks.get(0)
+    task.result = result
     task.save()
     return render.ok()
