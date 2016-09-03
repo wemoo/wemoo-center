@@ -10,6 +10,7 @@ from app.api import api
 from app.models.task import Task
 
 
+# Task index
 @api.route('/tasks', methods=['GET'])
 def tasks_index():
     tasks = [task for task in Task.objects()]
@@ -20,6 +21,7 @@ def tasks_index():
     return render.ok(res)
 
 
+# Get task by id
 @api.route('/tasks/<string:tid>', methods=['GET'])
 def tasks_get_by_id(tid):
     tasks = Task.objects(id=tid)
@@ -30,6 +32,19 @@ def tasks_get_by_id(tid):
         return render.not_found()
 
 
+# Get task by host
+@api.route('/tasks/<string:host_id>', methods=['GET'])
+def tasks_get_by_host_id(host_id):
+    tasks = Task.objects(host=host_id)
+    task_list = []
+    for task in tasks:
+        task_list.append(task.to_dict())
+
+    res = {'tasks': task_list}
+    return render.ok(res)
+
+
+# Create new task
 @api.route('/tasks', methods=['POST'])
 def tasks_post():
     data = loads(request.data.decode('utf-8'))
