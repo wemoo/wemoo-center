@@ -36,9 +36,10 @@ def tasks_post():
     title = data.get('title', None)
     desc = data.get('desc', None)
     script = data.get('script', None)
+    host = data.get('host', None)
 
     if title and desc and script:
-        task = Task(title=title, desc=desc, task_type=Task.TYPE_SINGLE, script=script)
+        task = Task(title=title, host=host, desc=desc, task_type=Task.TYPE_SINGLE, script=script)
         task.save()
     else:
         return render.error("Params missing.")
