@@ -26,7 +26,8 @@ def hosts_post():
         upsert=True)
 
     if result > 0:
-        return render.ok()
+        host = Host.objects(uuid=data['uuid']).get(0)
+        return render.ok(host.to_dict())
     else:
         return render.error()
 
